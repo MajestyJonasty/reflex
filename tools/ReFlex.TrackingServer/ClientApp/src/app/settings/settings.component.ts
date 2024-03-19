@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SettingsService } from 'src/shared/services/settingsService';
 import { Subscription, combineLatest, interval } from 'rxjs';
 import { LogService } from '../log/log.service';
@@ -14,6 +14,8 @@ import { DEFAULT_SETTINGS, DepthCameraState, ExtremumTypeCheckMethod, FilterType
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
+  @ViewChild('json')
+  public jsonElement?: ElementRef;
 
   public settings: TrackingServerAppSettings = DEFAULT_SETTINGS;
 
@@ -51,6 +53,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
       { name: ExtremumTypeCheckMethod[Number(x)], value: x }));
 
   public selectedExtremumCheckIdx = -1;
+
+  public showSettingsJSON = false;
+  public settingsJSON = '';
 
   private settingsSubscription?: Subscription;
   private trackingStatusSubscription?: Subscription;
@@ -362,6 +367,24 @@ export class SettingsComponent implements OnInit, OnDestroy {
       console.error(error);
       this.logService.sendErrorLog(`${error}`);
     });
+  }
+
+  public displaySettingsJSON(settings: TrackingServerAppSettings): void {
+    this.showSettingsJSON = true;
+
+    this.settingsJSON = JSON.stringify(settings);
+  }
+
+  public hideSettingsJSON(): void {
+    this.showSettingsJSON = false;
+
+    this.settingsJSON = '';
+  }
+
+  public selectText(): void {
+    if (this.jsonElement) {
+      this.jsonElement.nativeElement.select();
+    }
   }
 
   public uploadConfig(e: Event): void {
