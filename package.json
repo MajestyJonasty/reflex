@@ -38,7 +38,8 @@
     "tools/logging",
     "examples/basic-angular",
     "examples/basic-react",
-    "examples/basic-vue"    
+    "examples/basic-vue",
+    "tools/testemu"
   ],
   "dependencies": {
     "@angular/animations": "16.1.6",
