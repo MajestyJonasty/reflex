@@ -39,7 +39,7 @@
     "examples/basic-angular",
     "examples/basic-react",
     "examples/basic-vue",
-    "tools/testemu"
+    "tools/gestenemulator"
   ],
   "dependencies": {
     "@angular/animations": "16.1.6",
